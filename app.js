@@ -19,13 +19,6 @@ mongoose.connect('mongodb://localhost:27017/anidb', options);
 
 const app = express();
 app.use(cors())
-app.use(session({
-    secret: 'colud be anything',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}))
 app.use(express.json())
 UsersController(app)
-SessionController(app)
 app.listen(4000)
