@@ -1,5 +1,4 @@
 import * as dao from './users-dao.js'
-import {findByCredentials, findByUsername, findUsersList} from "./users-dao.js";
 
 let currentUser = null
 
@@ -32,37 +31,41 @@ const UsersController = (app) => {
 
     const register = async (req, res) => {
         const user = req.body
+        if (!user.username) {
+            res.sendStatus(403)
+            return
+        }
         const existingUser = await findByUsername(user.username)
         if (existingUser) {
             res.sendStatus(403)
             return
         }
         const actualUser = await dao.createUser(user)
-        currentUser = actualUser
+        req.session['currentUser'] = actualUser
         res.json(actualUser)
     }
 
     const login = async (req, res) => {
         const credentials = req.body
         const existingUser = await findByCredentials(credentials.username, credentials.password)
-        if (!existingUser) {
-            res.sendStatus(403)
+        if (existingUser) {
+            req.session['currentUser'] = existingUser
+            res.json(existingUser)
             return
         }
-        currentUser = existingUser
-        res.json(existingUser)
+        res.sendStatus(403)
     }
 
     const profile = async (req, res) => {
-        if (currentUser) {
-            res.json(currentUser)
+        if (req.session['currentUser']) {
+            res.json(req.session['currentUser'])
             return
         }
         res.sendStatus(403)
     }
 
     const logout = (req, res) => {
-        currentUser = null
+        req.session.destroy()
         res.sendStatus(200)
     }
 

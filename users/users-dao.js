@@ -12,10 +12,6 @@ export const register = async (user) => {
 
 export const findAllUsers = () =>
     usersModel.find()
-
-export const findUsersList = (uid) =>
-    usersModel.find({"accountType": "OTAKU", "_id": {$ne : uid}})
-
 export const findUserById = (uid) =>
     usersModel.findById(uid)
 
