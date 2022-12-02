@@ -5,6 +5,7 @@ import cors from 'cors'
 import SessionController from "./session-controller.js";
 import session from 'express-session';
 import {ReviewsController} from "./reviews/reviews-controller.js";
+import {FavoritesController} from "./favorites/favorites-controller.js";
 
 const options = {
     useNewUrlParser: true,
@@ -36,5 +37,6 @@ app.use(session({
 app.use(express.json())
 UsersController(app)
 ReviewsController(app)
+FavoritesController(app)
 SessionController(app)
 app.listen(4000)
