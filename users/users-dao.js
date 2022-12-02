@@ -1,5 +1,9 @@
 import usersModel from "./users-model.js";
 
+export const findUsersList = (uid) => {
+    return usersModel.find({accountType: 'OTAKU', _id: {$ne: uid}})
+}
+
 export const createUser = (user) =>
     usersModel.create(user)
 
@@ -12,6 +16,7 @@ export const register = async (user) => {
 
 export const findAllUsers = () =>
     usersModel.find()
+
 export const findUserById = (uid) =>
     usersModel.findById(uid)
 
@@ -19,8 +24,7 @@ export const findByUsername = (username) =>
     usersModel.findOne({username})
 
 export const findByCredentials = (username, password) =>
-    usersModel.findOne(
-        {username, password})
+    usersModel.findOne({username, password})
 
 export const deleteUser = (uid) =>
     usersModel.deleteOne({_id: uid})
