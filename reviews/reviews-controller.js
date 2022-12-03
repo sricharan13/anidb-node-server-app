@@ -17,11 +17,11 @@ export const ReviewsController = (app) => {
     }
 
     const findReviewsByAuthor = async (req, res) => {
-        const reviews = await dao.findReviewsByAuthor(req.params.authorId)
+        const reviews = await dao.findReviewsByAuthor(req.params.author)
         res.json(reviews)
     }
 
     app.post('/api/reviews', createReview)
     app.get('/api/anime/:animeId/reviews', findReviewsByAnime)
-    app.get('/api/users/:authorId/reviews', findReviewsByAuthor)
+    app.get('/api/users/:author/reviews', findReviewsByAuthor)
 }

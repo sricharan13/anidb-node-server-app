@@ -18,10 +18,23 @@ const FollowsController = (app) => {
         const followed = await dao.findFollowing(follower)
         res.json(followed)
     }
+    const findIfFollowing = async (req, res) => {
+        const followed = req.params.followed
+        const follower = req.session['currentUser']
+        let ifFollowed = false
+        if (follower) {
+            const result = await dao.findIfFollowing(followed, follower._id)
+            if (result.length) {
+                ifFollowed = true
+            }
+        }
+        res.json(ifFollowed)
+    }
 
     app.post('/follows', followUser)
     app.get('/follows/:followed/followers', findFollowers)
     app.get('/follows/:follower/following', findFollowing)
+    app.get('/follows/:followed/if-following', findIfFollowing)
 }
 
 export default FollowsController
