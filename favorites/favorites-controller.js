@@ -24,7 +24,7 @@ export const FavoritesController = (app) => {
 
     const findFavoritesByUser = async (req, res) => {
         const result = await dao.findFavoritesByUser(req.params.userId)
-        console.log(result)
+        // console.log(result)
         res.json(result)
     }
 

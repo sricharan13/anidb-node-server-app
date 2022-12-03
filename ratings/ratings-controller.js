@@ -10,6 +10,14 @@ export const RatingsController = (app) => {
         res.json(storedRating)
     }
 
+    const updateRating = async (req, res) => {
+        req.body.user = req.session['currentUser']._id
+        // console.log(req.body)
+        const updatedRating = await dao.updateRating(req.body)
+        // console.log(updatedRating)
+        res.json(updatedRating)
+    }
+
     const findRatingForAnime = async (req, res) => {
         const result = await dao.findRatingForAnime(req.params.animeId, req.session['currentUser']._id)
         // console.log(result)
@@ -22,6 +30,7 @@ export const RatingsController = (app) => {
     }
 
     app.post('/api/ratings', createRating)
+    app.post('/api/ratings/:animeId', updateRating)
     app.get('/api/anime/:animeId/ratings', findRatingForAnime)
     app.get('/api/users/:userId/ratings', findRatingsByUser)
 
