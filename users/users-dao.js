@@ -15,7 +15,7 @@ export const register = async (user) => {
 }
 
 export const findAllUsers = () =>
-    usersModel.find()
+    usersModel.find({accountType: 'OTAKU'})
 
 export const findUserById = (uid) =>
     usersModel.findById(uid)
@@ -32,3 +32,7 @@ export const deleteUser = (uid) =>
 export const updateUser = (uid, userUpdates) =>
     usersModel.updateOne({_id: uid},
         {$set: userUpdates})
+
+export const updateCurrentUser = (uid, update) =>
+    usersModel.findOneAndUpdate({_id: uid},
+        {$set: update}, {returnDocument: "after"})

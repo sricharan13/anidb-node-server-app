@@ -5,6 +5,6 @@ const followsSchema = mongoose.Schema({
     follower: {type: mongoose.Schema.Types.ObjectId, ref: 'UsersModel'},
 }, {collection: 'follows'})
 
-followsSchema.index({followed: 1, follower: 1}, {unique: true});
+await followsSchema.index({followed: 1, follower: 1}, {unique: true}, {background: false})
 
 export default followsSchema

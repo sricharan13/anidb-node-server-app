@@ -30,10 +30,18 @@ const UsersController = (app) => {
     const updateUser = async (req, res) => {
         const uid = req.params.uid
         const updates = req.body
-        const status = await dao.updateUser(uid,  updates)
+        console.log(uid)
+        console.log(updates)
+        // const status = await dao.updateUser(uid, updates)
+        // res.json(status)
+    }
+    const updateCurrentUser = async (req, res) => {
+        console.log("updateCurrentUser")
+        const uid = req.session['currentUser']._id
+        const updates = req.body
+        const status = await dao.updateCurrentUser(uid, updates)
         res.json(status)
     }
-
     const register = async (req, res) => {
         const user = req.body
         if (!user.username) {
@@ -73,12 +81,23 @@ const UsersController = (app) => {
         req.session.destroy()
         res.sendStatus(200)
     }
+    const findUserById = async (req, res) => {
+        const uid = req.params.uid
+        const user = await dao.findUserById(uid)
+        if (user) {
+            res.json(user)
+            return
+        }
+        res.sendStatus(404)
+    }
 
     app.post('/users', createUser)
-    // app.get('/users', findAllUsers)
+    app.get('/users/:uid', findUserById)
+    app.get('/users', findAllUsers)
     app.get('/users', findUsersList)
     app.delete('/users/:uid', deleteUser)
     app.put('/users/:uid', updateUser)
+    app.put('/users/', updateCurrentUser)
 
     app.post('/register', register)
     app.post('/login', login)
