@@ -1,7 +1,11 @@
 import followsModel from "./follows-model.js";
 import mongoose from "mongoose";
 
-export const followUser = (follow) => followsModel.create(follow, function (err) {if (err) {}})
+export const followUser = (follow) => followsModel.create(follow) // function (err) {if (err) {}}
+
+export const unFollowUser = (unFollow) => {
+    return followsModel.deleteOne(unFollow)
+}
 
 
 export const findFollowers = (followed) => {
