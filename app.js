@@ -1,11 +1,13 @@
 import mongoose from "mongoose"
 import express from 'express'
-import UsersController from "./users/users-controller.js";
 import cors from 'cors'
-import SessionController from "./session-controller.js";
 import session from 'express-session';
+import UsersController from "./users/users-controller.js";
+import SessionController from "./session-controller.js";
 import {ReviewsController} from "./reviews/reviews-controller.js";
+import {FavoritesController} from "./favorites/favorites-controller.js";
 import FollowsController from "./follows/follows-controller.js";
+import {RatingsController} from "./ratings/ratings-controller.js";
 
 const options = {
     useNewUrlParser: true,
@@ -27,15 +29,17 @@ app.use(cors(
 ))
 
 app.use(session({
-    secret: 'colud be anything',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}))
+                    secret: 'colud be anything',
+                    resave: false,
+                    saveUninitialized: true,
+                    cookie: { secure: false }
+                }))
 
 app.use(express.json())
 UsersController(app)
 ReviewsController(app)
+FavoritesController(app)
 SessionController(app)
 FollowsController(app)
+RatingsController(app)
 app.listen(4000)

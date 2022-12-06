@@ -12,7 +12,6 @@ export const findFollowers = (followed) => {
     return followsModel.find({followed}, {follower: true}).populate('follower', '_id username').exec()
 }
 
-
 export const findFollowing = (follower) => {
     return followsModel.find({follower}, {followed: true}).populate('followed', '_id username').exec()
 }

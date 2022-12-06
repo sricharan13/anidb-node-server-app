@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const reviewsSchema = mongoose.Schema(
     {
-        review: String,
         animeId: String,
+        animeTitle: String,
+        review: String,
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'UsersModel'

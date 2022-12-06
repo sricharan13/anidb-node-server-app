@@ -16,13 +16,11 @@ const FollowsController = (app) => {
         res.json(result)
     }
     const findFollowers = async (req, res) => {
-        const followed = req.params.followed
-        const followers = await dao.findFollowers(followed)
+        const followers = await dao.findFollowers(req.params.followed)
         res.json(followers)
     }
     const findFollowing = async (req, res) => {
-        const follower = req.params.follower
-        const followed = await dao.findFollowing(follower)
+        const followed = await dao.findFollowing(req.params.follower)
         res.json(followed)
     }
     const findIfFollowing = async (req, res) => {
