@@ -1,7 +1,5 @@
 import * as dao from './users-dao.js'
 
-let currentUser = null
-
 const UsersController = (app) => {
     const createUser = async (req, res) => {
         const user = req.body
@@ -25,15 +23,13 @@ const UsersController = (app) => {
     const deleteUser = async (req, res) => {
         const uid = req.params.uid
         const status = await dao.deleteUser(uid)
-        res.json(status)
+        res.json(await dao.findAllUsers())
     }
     const updateUser = async (req, res) => {
         const uid = req.params.uid
         const updates = req.body
         console.log(uid)
         console.log(updates)
-        // const status = await dao.updateUser(uid, updates)
-        // res.json(status)
     }
     const updateCurrentUser = async (req, res) => {
         console.log("updateCurrentUser")
