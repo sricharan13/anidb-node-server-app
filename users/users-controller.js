@@ -28,15 +28,13 @@ const UsersController = (app) => {
     const updateUser = async (req, res) => {
         const uid = req.params.uid
         const updates = req.body
-        console.log(uid)
-        console.log(updates)
     }
     const updateCurrentUser = async (req, res) => {
-        console.log("updateCurrentUser")
         const uid = req.session['currentUser']._id
         const updates = req.body
-        const status = await dao.updateCurrentUser(uid, updates)
-        res.json(status)
+        const updatedCurrentUserDetails = await dao.updateCurrentUser(uid, updates)
+        req.session['currentUser'] = updatedCurrentUserDetails
+        res.json(updatedCurrentUserDetails)
     }
     const register = async (req, res) => {
         const user = req.body
