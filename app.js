@@ -18,7 +18,9 @@ const options = {
     family: 4 // Use IPv4, skip trying IPv6
 }
 
-mongoose.connect('mongodb://localhost:27017/anidb', options);
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://0.0.0.0:27017/anidb"
+console.log(CONNECTION_STRING)
+mongoose.connect(CONNECTION_STRING, options);
 
 const app = express();
 app.use(cors(
@@ -29,7 +31,7 @@ app.use(cors(
 ))
 
 app.use(session({
-                    secret: 'colud be anything',
+                    secret: 'could be anything',
                     resave: false,
                     saveUninitialized: true,
                     cookie: { secure: false }
