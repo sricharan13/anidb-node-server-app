@@ -1,6 +1,6 @@
 import reviewsModel from "./reviews-model.js";
 
-export const deleteReview = (rid) => reviewsModel.deleteOne(rid)
+export const deleteReview = (review) => reviewsModel.deleteOne({rid: review})
 
 export const createReview = (review) => reviewsModel.create(review)
 
